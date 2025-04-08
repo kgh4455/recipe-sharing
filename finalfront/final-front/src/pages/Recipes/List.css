@@ -1,0 +1,231 @@
+.recipes-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1400px;
+    width: 100%;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+    margin: 0 auto;
+    margin-bottom: 100px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.speaker {
+    font-size: 20px;
+    background-color: #fff8f4;
+    margin: 0;
+}
+
+.recipes-main li {
+    list-style: none;
+}
+
+.recipes-search {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 80px;
+    flex-wrap: wrap;
+}
+
+.recipes-search select,
+.recipes-search input {
+    border-radius: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+.recipes-search select {
+    padding-right: 30px;
+}
+
+.recipes-search input {
+    width: 250px;
+}
+
+.rc-se {
+    background-color: #FFA575;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color:white;
+}
+
+.rc-se:hover {
+    background-color: #ff9d68;
+}
+
+
+/* 레시피 카드 그리드 */
+.recipes-grid {
+    width: 100%; 
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* 기본은 한 줄에 1개 레시피 */
+    gap: 50px;
+    align-items: start;
+    justify-items: center; /* 카드들을 가운데 정렬 */
+}
+
+.rc-list-img {
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+    justify-content: center;
+    margin: 0;
+}
+
+.rc-fn {
+    margin-top: 30px;
+    margin-bottom: 0;
+    text-align: left; /* 왼쪽 정렬 */
+}
+
+.recipes-card {
+    text-align: left;
+    transition: transform 0.3s ease;
+    margin: 0;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.recipes-card:hover {
+    cursor: pointer;
+}
+
+.recipes-grid-btn {
+    display: flex;
+    justify-content: space-between; /* 양끝에 배치 */
+    width: 100%; /* 전체 너비 사용 */
+    font-size: small;
+}
+
+.recipes-grid-btn a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.recipes-grid-btn {
+    font-size: 18px;
+}
+
+.load-more {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto 100px;
+    padding: 12px 24px;
+    background-color: #FFA575;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    width: 60%;
+    margin-top: 80px;
+    color:white;
+}
+
+.load-more:hover {
+    background-color: #ff9d68;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .recipes-search {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 40px;
+    }
+
+    .recipes-search input {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .recipes-search select {
+        width: 100%;
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .recipes-grid {
+        gap: 20px;
+        grid-template-columns: repeat(2, 1fr); /* 화면이 768px 이하일 때 한 줄에 2개씩 배치 */
+    }
+
+    .rc-list-img {
+        width: 200px;
+        height: 200px;
+    }
+
+    .recipes-card {
+        width: 60%;
+    }
+
+    .load-more {
+        width: 80%;
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .recipes-search input {
+        width: 100%;
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .recipes-search select {
+        width: 100%;
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .load-more {
+        width: 90%;
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+
+    .recipes-search {
+        gap: 5px;
+    }
+
+    .recipes-grid {
+        gap: 10px;
+        grid-template-columns: 1fr; /* 화면이 480px 이하일 때 한 줄에 1개씩 배치 */
+    }
+
+    .rc-list-img {
+        width: 180px;
+        height: 180px;
+    }
+
+    .recipes-card {
+        width: 100%;
+    }
+
+    .rc-se {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+}

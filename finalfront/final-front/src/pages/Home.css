@@ -1,0 +1,94 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box; /* padding, border를 포함한 크기 계산 */
+}
+
+.home {
+  width: 100%; /* 화면 크기에 맞게 가로폭을 100%로 설정 */
+  max-width: 1400px; /* 최대 폭을 1400px로 설정 */
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+.weather-app {
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  margin:0;
+  border:none;
+}
+
+.weather-recipe,
+.best-recipe,
+.new-recipe,
+.type-recipe {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* 아이템들이 한 줄에 두 개씩 배치되도록 공간을 균등하게 분배 */
+  gap: 40px; /* 카드 간의 간격 */
+}
+
+.weather {
+  text-align: right;
+}
+
+.weather-head p {
+  font-size: 12px;
+}
+
+.tarobanner {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.small-title {
+  text-align: left;
+  margin-top: 150px;
+  color: #FFA575;
+  margin-bottom: 40px;
+}
+
+.homefoodename {
+  font-size: 20px;
+  margin-top: 20px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1400px) {
+  .weather-recipe,
+  .best-recipe,
+  .new-recipe,
+  .type-recipe {
+    gap: 30px; /* 작은 화면에서는 카드 사이의 간격을 좁힘 */
+  }
+}
+
+@media (max-width: 768px) {
+  .small-title {
+    text-align: center; /* 화면 크기가 작아지면 제목 중앙 정렬 */
+  }
+
+  .weather-recipe,
+  .best-recipe,
+  .new-recipe,
+  .type-recipe {
+    flex-direction: row; /* 한 줄에 두 개씩 배치 */
+    gap: 20px; /* 간격 좁힘 */
+  }
+
+}
+
+@media (max-width: 480px) {
+  .small-title {
+    margin-top: 100px; /* 모바일 화면에서는 제목의 상단 여백을 더 줄임 */
+  }
+}

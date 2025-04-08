@@ -1,0 +1,64 @@
+.ocrrecipebig{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1400px;
+    width: 100%;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+    margin: 0 auto;
+    margin-bottom: 100px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.ocr-p{
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 80px;
+}
+
+.ocrb{
+    padding: 10px 20px;
+    border: none;
+    background-color: #FFA575;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    color:white;
+}
+
+.ocrb:hover{
+    background-color: #ff9d68;
+    cursor: pointer;
+}
+
+.ocrup{
+    margin-top: 80px;
+    text-align: right;
+    margin-bottom: 80px;
+}
+
+.ocr-pp{
+    color:#FFA575;
+    text-align: center;
+    font-size: 22px;
+    margin-top: 80px;
+}
+
+.ocrinput{
+    border-radius: 20px;
+    padding: 10px 100px 10px 10px;
+    text-align: left;
+    border: 1px solid black;
+}
+
+.ocrinput .input-field input[type="file"]{
+    border-radius: 20px;
+}

@@ -1,0 +1,40 @@
+.inquiry-list-container {
+    text-align: center;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+  }
+  
+  .inquiry-header {
+    font-size: 26px;
+    font-weight: bold;
+    background-color: #ff914d; /* 밝은 오렌지 */
+    margin-bottom: 30px;
+    padding: 12px 0;
+    text-align: center; /* ✅ 중앙 정렬 */
+    color: white;        /* ✅ 텍스트 가독성 위해 흰색 추천 */
+    border-radius: 10px; /* ✅ 살짝 둥글게 */
+  }
+
+  .inquiry-title-link{
+    text-decoration: none;
+    color:black;
+  }
+    
+  
+  .reply-status {
+    font-weight: bold;
+    color: #FF8746;/* 부드러운 강조 오렌지 */
+  }
+  
+  .inquiry-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #FFA575;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 180px;
+    color: white;
+  }
+  

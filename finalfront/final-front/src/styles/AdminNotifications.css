@@ -1,0 +1,86 @@
+.notifications-list {
+  width:100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+.notification-item {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.notification-item:hover {
+  transform: scale(1.02);
+}
+
+.notification-item p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* 모달 배경 스타일 */
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.del-rep{
+  background-color: #EEEEEE;
+  padding: 10px 20px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+  margin-right: 0;
+  color: #5e5e5e;
+}
+
+.del-rep:hover{
+  background-color: #d2d2d2;
+}
+
+.plus-rep{
+  background: #FFA575;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.plus-rep:hover{
+    background-color: #ff9d68;
+}
+
+@media (max-width: 1024px) {
+  .notifications-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 📌 화면이 600px 이하일 때 → 1개씩 */
+@media (max-width: 600px) {
+  .notifications-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

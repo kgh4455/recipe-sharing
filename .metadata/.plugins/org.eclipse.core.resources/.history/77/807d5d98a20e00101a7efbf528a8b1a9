@@ -1,0 +1,466 @@
+package com.project.service;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
+
+import com.project.config.JwtUtil;
+import com.project.mapper.InquiryMapper;
+import com.project.mapper.UserMapper;
+import com.project.model.Favorites;
+import com.project.model.Inquiry;
+import com.project.model.Notification;
+import com.project.model.User;
+import com.project.model.krhBoardVO;
+
+import lombok.RequiredArgsConstructor;
+
+
+@Service
+@Transactional
+@RequiredArgsConstructor
+public class UserService {
+
+    private final UserMapper userMapper;
+    private final JwtUtil jwtUtil;
+    private final PasswordEncoder passwordEncoder;
+    private final InquiryMapper inquiryMapper;
+    private final NotificationService notificationService; 
+    // 🔹 이메일 인증 코드 저장
+    private final Map<String, String> verificationCodes = new HashMap<>(); // 🔹 이메일-코드 저장
+    private final EmailService emailService;
+    private static final String UPLOAD_DIR = System.getProperty("user.dir") + "/uploads/"; // ✅ 업로드 디렉토리 고정
+    private final JdbcTemplate jdbcTemplate;
+    
+    @Autowired
+    public UserService(EmailService emailService,
+                       InquiryMapper inquiryMapper,
+                       JwtUtil jwtUtil,
+                       PasswordEncoder passwordEncoder,
+                       UserMapper userMapper,
+                       NotificationService notificationService,
+                       JdbcTemplate jdbcTemplate) {  // 🔹 JdbcTemplate 추가
+        this.emailService = emailService;
+        this.inquiryMapper = inquiryMapper;
+        this.jwtUtil = jwtUtil;
+        this.passwordEncoder = passwordEncoder;
+        this.userMapper = userMapper;
+        this.notificationService = notificationService;
+        this.jdbcTemplate = jdbcTemplate; // 🔹 추가된 jdbcTemplate
+ 
+    }
+    // ✅ 인증번호 생성 후 저장
+    public void sendVerificationEmail(String email) {
+        String code = generateVerificationCode(); // 랜덤 인증번호 생성
+        userMapper.saveVerificationCode(email, code); // DB에 저장
+        emailService.sendEmail(email, "이메일 인증 코드", "인증번호: " + code);
+    }
+
+    public void verifyEmail(String email, String code) { // ✅ 변경: verificationCode -> code
+        String storedCode = userMapper.getVerificationCode(email);
+        
+        System.out.println("입력된 인증번호: " + code);
+        System.out.println("DB에 저장된 인증번호: " + storedCode);
+
+        if (storedCode == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "인증번호가 존재하지 않습니다.");
+        }
+
+        if (!storedCode.trim().equals(code.trim())) {  // ✅ trim()을 사용하여 공백 문제 해결
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "인증번호가 일치하지 않습니다.");
+        }
+
+        System.out.println("✅ 인증번호가 일치합니다.");
+    }
+
+
+
+
+
+    // ✅ 6자리 랜덤 인증번호 생성
+    private String generateVerificationCode() {
+        Random random = new Random();
+        return String.format("%06d", random.nextInt(1000000)); // 6자리 숫자로 변환
+    }
+    public void registerUser(User user, MultipartFile profileImage) {
+        if (user.getIsVerified() == null || !user.getIsVerified()) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "이메일 인증을 완료한 사용자만 가입할 수 있습니다.");
+        }
+
+        user.setIsVerified(true);
+
+        // ✅ 비밀번호 암호화
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
+
+        // ✅ 프로필 이미지 저장 처리
+        if (profileImage != null && !profileImage.isEmpty()) {
+            try {
+                String uploadDir = System.getProperty("user.dir") + "/uploads/";
+                File folder = new File(uploadDir);
+                if (!folder.exists()) folder.mkdirs();
+
+                String originalFileName = profileImage.getOriginalFilename();
+                String newFileName = UUID.randomUUID() + "_" + originalFileName;
+
+                File dest = new File(uploadDir + newFileName);
+                profileImage.transferTo(dest);
+
+                user.setProfileImage(newFileName);
+                System.out.println("📸 이미지 저장 완료: " + newFileName);
+            } catch (IOException e) {
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "프로필 이미지 저장 실패");
+            }
+        }
+
+        userMapper.registerUser(user);
+        System.out.println("✅ 회원가입 완료!");
+    }
+
+
+
+    // ✅ 이메일 중복 체크 서비스
+    public boolean checkEmailExists(String email) {
+        return userMapper.checkEmailExists(email) > 0;
+    }
+    // ✅ 휴대폰 번호 중복 체크 서비스
+ // ✅ 휴대폰 번호 중복 체크 서비스 (수정)
+    public boolean checkPhoneExists(String phoneNumber) {
+        // ✅ DB에서 하이픈 제거 후 비교하는 방식으로 중복 검사
+        int count = userMapper.countByPhoneNumber(phoneNumber);
+        return count > 0; // 0보다 크면 중복
+    }
+
+
+    // ✅ 1. 🔹 이름과 휴대폰 번호로 아이디(이메일) 찾기 (변경)
+    public String findUserIdByNameAndPhone(String name, String phoneNumber) {
+        String userEmail = userMapper.findEmailByNameAndPhone(name, phoneNumber);
+        if (userEmail == null) {
+            throw new IllegalArgumentException("입력한 정보와 일치하는 계정이 없습니다.");
+        }
+        return userEmail;
+    }
+
+ // ✅ 2. 🔹 비밀번호 찾기: 이메일 인증 코드 전송 (이메일 + 휴대폰 번호 확인)
+    public void sendVerificationCode(String email, String phoneNumber) {
+        if (userMapper.countUserByEmailAndPhone(email, phoneNumber) == 0) {
+            throw new IllegalArgumentException("해당 이메일과 휴대폰 번호가 일치하는 사용자가 존재하지 않습니다.");
+        }
+
+        String verificationCode = emailService.generateVerificationCode();
+        System.out.println("📌 생성된 인증번호: " + verificationCode);
+        
+        // 🔹 DB에서 기존 코드 조회
+        String existingCode = userMapper.getVerificationCode(email);
+
+        if (existingCode == null) {
+            System.out.println("📌 기존 인증번호 없음, INSERT 실행");
+            userMapper.saveVerificationCode(email, verificationCode);
+        } else {
+            System.out.println("📌 기존 인증번호 존재, UPDATE 실행");
+            int updatedRows = userMapper.updateVerificationCode(email, verificationCode);
+
+            if (updatedRows == 0) {
+                System.out.println("📌 UPDATE 실패, INSERT 실행");
+                userMapper.saveVerificationCode(email, verificationCode);
+            }
+        }
+
+        System.out.println("✅ 인증번호 저장됨: " + verificationCode);
+        emailService.sendVerificationCode(email, verificationCode);
+    }
+
+
+    // ✅ 3. 🔹 비밀번호 변경 (이메일 + 휴대폰 번호 확인 후)
+    public void resetPassword(String email, String newPassword) {
+        System.out.println("✅ 비밀번호 변경 요청 - 이메일: " + email);
+
+        // 🔹 비밀번호 암호화 후 저장
+        String encryptedPassword = passwordEncoder.encode(newPassword);
+        userMapper.updatePassword(email, encryptedPassword);
+
+        System.out.println("✅ 비밀번호 변경 완료!");
+    }
+    
+
+
+    // 이메일과 비밀번호로 유저 검증
+    public User validateUser(String email, String rawPassword) {
+        User user = userMapper.getUserByEmail(email);
+        if (user == null) {
+            return null;
+        }
+
+        System.out.println("🔍 [백엔드] 로그인 요청 - 이메일: " + email);
+        System.out.println("🔹 [백엔드] 데이터베이스 저장된 해시 비밀번호: " + user.getPassword());
+        System.out.println("🔹 [백엔드] 입력된 원본 비밀번호: " + rawPassword);
+
+        // ✅ bcrypt로 비밀번호 비교
+        if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
+            System.out.println("🚨 [백엔드] 비밀번호 불일치!");
+            return null;
+        }
+
+        return user;
+    }
+
+ // UserService 클래스 내부에 추가
+    public String getHashedPasswordByEmail(String email) {
+        return userMapper.getHashedPasswordByEmail(email);
+    }
+
+    public Map<String, Object> login(String email, String rawPassword) {
+        System.out.println("🚀 login() 메서드 실행됨! 입력된 이메일: " + email);
+
+        // 🔹 1. 유저 정보 가져오기
+        User user = userMapper.getUserByEmail(email);
+        System.out.println("🔍 [DB 조회 결과] user = " + (user != null ? "존재함" : "존재하지 않음"));
+
+        if (user == null) {
+            System.out.println("❌ 이메일이 존재하지 않음");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "잘못된 이메일 또는 비밀번호입니다.");
+        }
+
+        System.out.println("🔍 [DB 저장된 해시 비번] " + user.getPassword());
+        System.out.println("🔍 [입력된 원본 비번] " + rawPassword);
+
+        if (!passwordEncoder.matches(rawPassword, user.getPassword())) {
+            System.out.println("❌ 비밀번호 불일치");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "잘못된 이메일 또는 비밀번호입니다.");
+        }
+
+        System.out.println("✅ 로그인 성공! 유저 ID: " + user.getId() + ", 역할: " + user.getRole());
+
+        // 🔹 2. 로그인 기록 저장 (관리자 제외)
+        if (user.getId() != null && !"ADMIN".equals(user.getRole())) {
+            System.out.println("🔹 saveLoginHistory() 호출 예정 - userId: " + user.getId());
+            saveLoginHistory(user.getId());
+            System.out.println("✅ 로그인 기록 저장 완료!");
+        } else {
+            System.out.println("⚠️ 관리자 또는 ID NULL → 로그인 기록 저장 제외");
+        }
+
+        // 🔹 3. 마지막 로그인 시간 업데이트 (모두 적용)
+        userMapper.updateLastLogin(user.getId());
+        System.out.println("✅ last_login 컬럼 업데이트 완료");
+
+        // 🔹 4. login_count 증가 (관리자 제외)
+        if (!"ADMIN".equals(user.getRole())) {
+            userMapper.incrementLoginCount(email);
+            System.out.println("✅ 일반 유저 login_count 증가 완료 (1시간 간격 제한)");
+        } else {
+            System.out.println("⚠️ 관리자 로그인 → login_count 증가 제외");
+        }
+
+        // 🔹 5. JWT 생성
+        String token = jwtUtil.generateToken(user.getId(), user.getEmail(), user.getRole());
+
+        System.out.println("✅ JWT 토큰 생성 완료: " + token);
+
+        // 🔹 6. 응답 구성
+        Map<String, Object> response = new HashMap<>();
+        response.put("user", user);
+        response.put("token", token);
+
+        return response;
+    }
+
+
+    
+    public void saveLoginHistory(Long userId) {
+        System.out.println("📝 saveLoginHistory() 실행됨! userId = " + userId);
+        if (userId == null) {
+            System.out.println("⚠️ userId가 NULL이라 기록이 안 됨!");
+            return;
+        }
+
+        try {
+            String sql = "INSERT INTO login_history (user_id) VALUES (?)";
+            jdbcTemplate.update(sql, userId);
+            System.out.println("✅ 로그인 기록 저장 완료! userId = " + userId);
+        } catch (Exception e) {
+            System.out.println("❌ 로그인 기록 저장 중 예외 발생: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+    public User getUserByEmail(String email) {
+        System.out.println("🔍 getUserByEmail() 실행됨: " + email);
+        User user = userMapper.getUserByEmail(email);
+
+        if (user == null) {
+            System.out.println("⚠ 유저를 찾을 수 없음!");
+            throw new IllegalArgumentException("해당 이메일의 유저를 찾을 수 없습니다.");
+        }
+
+        System.out.println("✅ 조회된 유저: " + user);
+
+        // ✅ 프로필 이미지 변환 로직 (중복 변환 방지)
+        String profileImage = user.getProfileImage();
+        if (profileImage != null && !profileImage.isEmpty()) {
+            profileImage = profileImage.trim();
+
+            // ⚠ URL에 `http://localhost:8080/uploads/`가 포함된 경우, 변환하지 않음
+            if (!profileImage.startsWith("http://") && !profileImage.startsWith("https://")) {
+                profileImage = "http://localhost:8080/uploads/" + profileImage;
+                System.out.println("🖼 변환된 프로필 이미지 URL: " + profileImage);
+            } else {
+                System.out.println("🖼 기존 URL 유지: " + profileImage);
+            }
+
+            user.setProfileImage(profileImage);
+        } else {
+            System.out.println("⚠ 프로필 이미지 없음!");
+        }
+
+        return user;
+    }
+
+
+
+
+
+
+    // 🔹 2️⃣ 유저 정보 수정 + 이미지 업로드
+    @Transactional
+    public User updateUser(String email, String password, String name, String phoneNumber, MultipartFile file) {
+        User user = userMapper.findByEmail(email);
+        if (user == null) {
+            throw new RuntimeException("사용자를 찾을 수 없습니다.");
+        }
+
+        if (password != null && !password.isEmpty()) {
+            user.setPassword(passwordEncoder.encode(password));
+        }
+        user.setName(name);
+        user.setPhoneNumber(phoneNumber);
+
+        // ✅ 프로필 이미지 업로드 처리
+        if (file != null && !file.isEmpty()) {
+            String newFileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+            Path filePath = Paths.get(System.getProperty("user.dir") + "/uploads/", newFileName);
+
+            try {
+                Files.createDirectories(Paths.get(System.getProperty("user.dir") + "/uploads/")); // ✅ 디렉토리 없으면 생성
+                file.transferTo(filePath.toFile());
+                user.setProfileImage(newFileName);
+                System.out.println("✅ 저장된 파일 경로: " + filePath.toAbsolutePath());
+            } catch (IOException e) {
+                throw new RuntimeException("❌ 파일 업로드 실패: " + e.getMessage(), e);
+            }
+        }
+
+        userMapper.updateUser(user);
+        return user; // ✅ 업데이트된 유저 객체 반환
+    }
+
+
+
+
+    
+
+    public List<krhBoardVO> getUserBoardTitles(String email) {
+        System.out.println("🟢 [게시물 조회 요청] email: " + email);
+        return userMapper.findBoardsByUserEmail(email);
+    }
+
+    // 🔹 회원탈퇴 요청 저장
+    public void requestAccountDeletion(String email, String reason) {
+        userMapper.requestAccountDeletion(email, reason);
+        // ✅ WebSocket 알림 전송 (관리자에게 탈퇴 요청 알림)
+        notificationService.sendWithdrawNotification(
+            "회원 " + email + " 님의 탈퇴 요청이 접수되었습니다."
+        );
+    }
+
+    // 🔹 (본인) 유저 알림 목록 조회
+    public List<Notification> getUserNotifications(String email) {
+        return userMapper.getUserNotifications(email);
+    }
+
+    // 🔹 (본인) 유저 알림 읽음 처리
+    public void markUserNotificationAsRead(Long notificationId, String email) {
+        userMapper.markUserNotificationAsRead(notificationId, email);
+    }
+    // ✅ 특정 알림 삭제
+    public void deleteUserNotification(Long id) {
+        userMapper.deleteUserNotification(id);
+    }
+
+    /** ✅ 유저 즐겨찾기 관련 기능 **/
+
+    // 유저의 즐겨찾기 목록 조회
+    public List<Favorites> getFavoritesByUser(Long userId) {
+        return userMapper.getFavoritesByUserId(userId);
+    }
+    public List<Map<String, Object>> getFavoriteRecipeList(Long userId) {
+        return userMapper.getFavoriteRecipesByUser(userId);
+    }
+
+    // 즐겨찾기 삭제
+    @Transactional
+    public boolean removeFavorite(Long userId, Long recipeId) {
+        int deletedRows = userMapper.removeFavorite(userId, recipeId);
+
+        if (deletedRows > 0) {
+            System.out.println("✅ [성공] 관심 목록에서 삭제됨! (삭제된 행 수: " + deletedRows + ")");
+            return true;
+        } else {
+            System.out.println("❌ [실패] 삭제된 데이터 없음! userId 또는 recipeId 확인 필요");
+            return false;
+        }
+    }
+    // 🔹 1:1 문의 등록
+    public void insertInquiry(Inquiry inquiry) {
+        userMapper.insertInquiry(inquiry);
+        // ✅ WebSocket 알림 전송
+        notificationService.sendInquiryNotification(
+            "새로운 1:1 문의가 등록되었습니다. [" + inquiry.getTitle() + "]"
+        );
+    }
+
+ // 🔹 로그인한 사용자의 문의 목록 조회
+    public List<Inquiry> getUserInquiries(String email) {
+        return inquiryMapper.getUserInquiries(email);
+    }
+ // ✅ 특정 문의가 해당 사용자의 것인지 확인하는 메서드 (기존 `getUserInquiries` 활용)
+    public boolean isInquiryOwner(Long inquiryId, String email) {
+        return getUserInquiries(email).stream()
+            .anyMatch(inquiry -> inquiry.getId().equals(inquiryId));
+    }
+ // ✅ 특정 문의 조회 서비스
+    public Inquiry getInquiryById(Long id) {
+        return inquiryMapper.findById(id);
+    }
+
+    // 🔹 로그인한 사용자가 특정 문의 삭제
+    public void deleteInquiry(Long id, String email) {
+        Inquiry inquiry = inquiryMapper.findById(id);
+
+        if (inquiry == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "문의가 존재하지 않습니다.");
+        }
+
+        // **이메일 비교 불필요 -> JWT에서 추출한 이메일과 동일한 데이터만 조회**
+        inquiryMapper.deleteInquiry(id);
+    }
+}}

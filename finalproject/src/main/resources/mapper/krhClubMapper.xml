@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mapper.krhClubMapper">
+	<!--클럽 전체 목록 조회-->
+	<select id="clubList" resultType="com.project.model.krhClubVO">
+	    SELECT *
+	    FROM club
+	</select>
+	
+	<!--클럽 태그 10개 조회-->
+	<select id="tagList" resultType="com.project.model.krhTagVO">
+	  	SELECT t.tagName, t.tagId, COUNT(*) AS tagCount
+	    FROM tag t
+	    JOIN clubtag ct ON t.tagId = ct.tagId
+	    GROUP BY t.tagId
+	    ORDER BY tagCount DESC
+	    LIMIT 10;
+	</select>
+	
+	<!--태그에 맞는 클럽 조회-->
+	<select id="clubtagList" resultType="com.project.model.krhClubVO">
+		SELECT c.*
+	    FROM club c
+	    JOIN clubtag ct ON c.clubId = ct.clubId
+	    WHERE ct.tagId = #{tagId}
+	</select>
+	
+	<!--클럽 검색 -->
+	<select id="searchClub" parameterType="String" resultType="com.project.model.krhClubVO">
+		SELECT * FROM club
+	    WHERE clubName LIKE CONCAT('%', #{keyword}, '%')
+	       OR location LIKE CONCAT('%', #{keyword}, '%')
+	    ORDER BY clubId DESC;
+	</select>
+	
+
+	<!-- 동호회 삽입 -->
+	<insert id="insertClub" useGeneratedKeys="true" keyProperty="clubId" parameterType="com.project.model.krhClubVO">
+	    INSERT INTO club (clubName, clubFeatures, location, date, recruiterEmail, clubImage, clubUrl, createdAt)
+	    VALUES (#{clubName}, #{clubFeatures}, #{location}, #{date}, #{recruiterEmail}, #{clubImage}, #{clubUrl}, now())
+	</insert>
+	
+	<!-- 태그 삽입 (존재하지 않으면 삽입) -->
+	<insert id="insertTagIfNotExist" parameterType="com.project.model.krhClubVO">
+	    <foreach collection="hashtags" item="hashtag" separator=",">
+	        INSERT INTO tag (tagName)
+	        SELECT #{hashtag}
+	        FROM DUAL
+	        WHERE NOT EXISTS (SELECT 1 FROM tag WHERE tagName = #{hashtag});
+	    </foreach>
+	</insert>
+	
+	<!-- 게시물과 해시태그 연결 -->
+	<insert id="linkPostHashtags">
+	    <foreach collection="hashtags" item="hashtag" separator=",">
+	        INSERT INTO clubtag (clubId, tagId)
+	        SELECT #{clubId}, t.tagId
+	        FROM tag t
+	        WHERE t.tagName = #{hashtag};
+	    </foreach>
+	</insert>
+
+	
+	<!--클럽 상세보기-->
+	<select id="getClubById" parameterType="int" resultType="com.project.model.krhClubVO">
+		select * from club where clubId=#{clubId}
+	</select>
+	
+	<!--클럽 신청을 위한 주최자의 이메일 갖고오기-->
+	<select id="getEmailbyId" resultType="String">
+		select recruiterEmail from club where clubId=#{clubId}
+	</select>
+	
+	<!--클럽 신청-->
+	<insert id="insertApplication" parameterType="com.project.model.krhApplicationRequestVO">
+		insert into applications (clubId, applicantName, applicantEmail, applicantAge, applicantGender, applyDate, privacyAgreement)
+    	values (#{clubId}, #{applicantName}, #{applicantEmail}, #{applicantAge}, #{applicantGender}, now(), #{privacyAgreement})
+	</insert>
+</mapper>

@@ -1,0 +1,33 @@
+.user-info-card {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+  margin:0 auto;
+  justify-content: center;
+  width:50%;
+  }
+  
+  
+  /* ✅ 줄바꿈된 텍스트를 위아래 여백만 주고, 가운데 정렬 유지 */
+  .user-info-detail p {
+    margin: 14px 0;
+    font-size: 17px;
+    line-height: 1.6;
+    text-align: left; /* 이 줄도 안전하게 추가 */
+  }
+    
+    .profile-image-box {
+      margin-bottom: 80px;
+    }
+    
+    .profile-image {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #ff914d;
+    }
+    
+    .ui-t{
+      color:#ff914d;
+      margin-right: 20px;
+    }

@@ -1,0 +1,120 @@
+/* 전체 컨테이너 */
+/* 전체 컨테이너 */
+.login-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  min-height: 700px;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 로그인 박스 */
+.login-box {
+  width: 500px;
+  padding: 40px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 입력 필드 라벨 */
+.login-label {
+  align-self: flex-start;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+  margin-left: 5px;
+}
+
+/* 입력 필드 */
+.login-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 40px;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+  font-family: 'NEXON Lv1 Gothic OTF';
+  margin-right: 0;
+}
+
+.login-input:focus{
+  border-color: #ff9861;
+  outline: none;
+}
+/* 로그인 버튼 */
+.login-button{
+  font-size: 16px;
+  width: 50%;
+  background-color: #FFA575;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color:white;
+  margin-right: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.login-button:hover {
+  background-color: #ff9d68;
+}
+
+/* 하단 링크 */
+.login-links {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+  gap:15px;
+}
+
+.finds-button{
+  font-size: 16px;
+  margin-top: 40px;
+  color: #5e5e5e;
+  text-decoration: underline;
+
+}
+
+.registers-button{
+  font-size: 16px;
+  background-color: #EEEEEE;
+  padding: 10px 20px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+  width: 50%;
+  margin-right: 0;
+  color: #5e5e5e;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.finds-button:hover{
+  cursor: pointer;
+}
+
+.registers-button:hover {
+  cursor: pointer;
+  background-color: #d2d2d2;
+}
+
+.log-but-con{
+  width:100%;
+  display: flex;
+  gap:20px;
+}

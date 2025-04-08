@@ -1,0 +1,30 @@
+*{
+    margin: 10px;
+}
+ul, li {
+    margin: 0;
+    padding: 0;
+}
+.sidebar_main li{
+    list-style: none;
+    text-align: center;
+}
+.sidebar_main{
+    
+    margin: 0;
+}
+
+.sidebar_component{
+    margin-top: 30vh;
+    
+}
+
+.sidebar_component li{
+    margin-top: 30px;
+    font-size: medium;
+}
+
+.sidebar-list .active{
+    font-weight: bold;
+    font-size: larger;
+}

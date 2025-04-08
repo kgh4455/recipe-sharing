@@ -1,0 +1,90 @@
+/* 모임 신청 페이지 전체 스타일 */
+.club-apply-page {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+
+  
+  /* 에러 및 성공 메시지 */
+  .error-message, .success-message {
+    text-align: center;
+    color: white;
+    background-color: #ff5c5c;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .success-message {
+    background-color: #5cb85c;
+  }
+  
+  /* 공통 입력란 스타일 */
+  .apply-form .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .apply-form label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input-field:focus {
+    border-color: #ff9861;
+    outline: none;
+  }
+  
+  /* 성별 라디오 버튼 스타일 */
+  .gender-options {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .gender-options label {
+    font-size: 16px;
+  }
+  
+  .gender-options input {
+    margin-right: 8px;
+  }
+  
+  /* 체크박스 스타일 */
+  .apply-form .form-group label {
+    font-size: 16px;
+  }
+  
+  .apply-form input[type="checkbox"] {
+    margin-right: 8px;
+  }
+  
+  /* 제출 버튼 스타일 */
+  .applicant-button {
+    padding: 10px 20px;
+    background-color: #FFA575;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .applicant-button:hover {
+    background-color: #ff9d68;
+    cursor: pointer;
+  }
+  
+  
+  .apply-form .form-group {
+    margin-bottom: 20px;
+  }
+  

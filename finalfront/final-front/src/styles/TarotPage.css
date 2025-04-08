@@ -1,0 +1,187 @@
+.tarot-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  min-height: 800px;
+  opacity: 0;
+  animation: fadeIn 3s forwards;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+.card-grid {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin-top: 30px;
+}
+
+.tarot-card {
+  width: 280px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s;
+  border-radius: 10px;
+}
+
+.tarot-card:hover {
+  transform: scale(1.05);
+}
+
+.result-box {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  min-height: 800px;
+  opacity: 0;
+  animation: fadeIn 3s forwards;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+
+.tarot-result-img {
+  width: 250px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s;
+  border-radius: 50px;
+  margin-bottom: 80px;
+}
+
+.recommended-recipe a {
+  font-weight: bold;
+  color: #e67e22;
+  text-decoration: none;
+}
+
+.error {
+  color: red;
+  margin-top: 20px;
+}
+
+.pick-message {
+  margin-bottom: 100px;
+  font-family: "Grandiflora One", cursive;
+  font-weight: 1000;
+  font-style: normal;
+  line-height: 2;
+}
+
+.recommended-recipe {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.recipe-img {
+  width: 200px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.recipe-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 16px;
+  color: #333;
+}
+
+.recipe-link {
+  color: #ff914d;
+  text-decoration: underline;
+}
+
+.card-description {
+  margin-bottom: 100px;
+  font-size: 20px;
+  font-family: "Grandiflora One", cursive;
+  font-weight: bold;
+  width: 70%;
+  line-height: 2;
+}
+
+.ta-ti {
+  margin-bottom: 80px;
+}
+
+/* 반응형 디자인 추가 */
+@media (max-width: 1200px) {
+  .tarot-card {
+      width: 220px;
+  }
+  .tarot-result-img {
+      width: 200px;
+  }
+  .recipe-img {
+      width: 180px;
+  }
+  .card-description {
+      font-size: 18px;
+  }
+
+  .ta-ti {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-grid {
+      flex-direction: column;
+      gap: 30px;
+  }
+  .tarot-card {
+      width: 180px;
+  }
+  .tarot-result-img {
+      width: 180px;
+  }
+  .recipe-img {
+      width: 150px;
+  }
+  .card-description {
+      font-size: 16px;
+      width: 90%;
+  }
+  .ta-ti {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tarot-card {
+      width: 140px;
+  }
+  .tarot-result-img {
+      width: 140px;
+  }
+  .recipe-img {
+      width: 120px;
+  }
+  .card-description {
+      font-size: 14px;
+      width: 100%;
+  }
+  .pick-message {
+      font-size: 16px;
+  }
+  .ta-ti {
+    font-size: 16px;
+  }
+}

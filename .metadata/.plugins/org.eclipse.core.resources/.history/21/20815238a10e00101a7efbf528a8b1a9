@@ -1,0 +1,174 @@
+package com.project.mapper;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+import com.project.model.Favorites;
+import com.project.model.Inquiry;
+import com.project.model.Notification;
+import com.project.model.User;
+import com.project.model.krhBoardVO;
+
+@Mapper
+public interface UserMapper {
+
+    // 🔹 이름과 휴대폰 번호로 아이디 찾기
+    @Select("SELECT email FROM users WHERE name = #{name} AND phone_number = #{phoneNumber}")
+    String findEmailByNameAndPhone(@Param("name") String name, @Param("phoneNumber") String phoneNumber);
+
+    // 🔹 해당 이메일과 휴대폰 번호를 가진 유저 존재 여부 확인
+    @Select("SELECT COUNT(*) FROM users WHERE email = #{email} AND phone_number = #{phoneNumber}")
+    int countUserByEmailAndPhone(@Param("email") String email, @Param("phoneNumber") String phoneNumber);
+
+    // 🔹 특정 이메일로 유저 조회 (Optional)
+    @Select("SELECT * FROM users WHERE email = #{email}")
+    User findByEmail(String email);
+    @Update("UPDATE users SET password = #{password} WHERE email = #{email}")
+    void updatePassword(@Param("email") String email, @Param("password") String password);
+    @Insert("INSERT INTO verification_codes (email, code, created_at) " +
+            "VALUES (#{email}, #{code}, NOW()) " +
+            "ON DUPLICATE KEY UPDATE code = VALUES(code), created_at = NOW()")
+    void saveVerificationCode(@Param("email") String email, @Param("code") String code);
+    @Insert("INSERT INTO verification_codes (email, code, created_at) VALUES (#{email}, #{code}, NOW())")
+    void insertVerificationCode(@Param("email") String email, @Param("code") String code);
+
+    @Update("UPDATE verification_codes SET code = #{code}, created_at = NOW() WHERE email = #{email}")
+    int updateVerificationCode(@Param("email") String email, @Param("code") String code);
+
+    @Select("SELECT code FROM verification_codes WHERE email = #{email} ORDER BY created_at DESC LIMIT 1")
+    String getVerificationCode(@Param("email") String email);
+
+    @Select("SELECT * FROM users")
+    List<User> findAllUsers();
+    // ✅ 특정 ID로 문의 조회 (이메일 포함)
+    @Select("SELECT * FROM inquiries WHERE id = #{id}")
+    Inquiry findById(Long id);
+    // ✅ 특정 문의글이 해당 사용자의 것인지 확인하는 메서드
+    @Select("SELECT COUNT(*) FROM inquiries WHERE id = #{inquiryId} AND user_email = #{email}")
+    int isInquiryOwner(@Param("inquiryId") Long inquiryId, @Param("email") String email);
+    
+    @Delete("DELETE FROM verification_codes WHERE email = #{email}")
+    void deleteVerificationCode(@Param("email") String email);
+    // 🔹 회원가입 (휴대폰 번호 포함)
+    @Insert("INSERT INTO users (email, password, name, phone_number, profile_image, role, is_verified, created_at) " +
+            "VALUES (#{email}, #{password}, #{name}, #{phoneNumber}, #{profileImage}, #{role}, #{isVerified}, NOW())")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
+    void registerUser(User user);
+ // UserMapper.java에 추가
+    @Select("SELECT password FROM users WHERE email = #{email}")
+    String getHashedPasswordByEmail(@Param("email") String email);
+
+    // ✅ 특정 이메일의 암호화된 비밀번호 조회
+    @Select("SELECT password FROM users WHERE email = #{email}")
+    String getPasswordByEmail(@Param("email") String email);
+    // ✅ 이메일 중복 체크
+    @Select("SELECT COUNT(*) FROM users WHERE email = #{email}")
+    int checkEmailExists(@Param("email") String email);
+
+    // ✅ 특정 휴대폰 번호로 유저 찾기 (기존 방식)
+    @Select("SELECT COUNT(*) FROM users WHERE REPLACE(phone_number, '-', '') = REPLACE(#{phoneNumber}, '-', '')")
+    int countByPhoneNumber(String phoneNumber);
+    // 🔹 로그인 (휴대폰 번호 포함)
+    @Select("SELECT * FROM users WHERE email = #{email} AND password = #{password}")
+    User login(@Param("email") String email, @Param("password") String password);
+
+    // 🔹 유저 정보 조회 (휴대폰 번호 포함)
+    @Select("SELECT id, email, password, name, phone_number, profile_image, role, is_verified, created_at FROM users WHERE email = #{email}")
+    User getUserByEmail(@Param("email") String email);
+
+
+    // 🔹 유저 정보 수정 (이름, 프로필 이미지, 휴대폰 번호)
+
+    @Update({
+        "<script>",
+        "UPDATE users SET",
+        "<if test='password != null and password != \"\"'> password = #{password}, </if>",
+        "name = #{name},",
+        "phone_number = #{phoneNumber}",
+        "<if test='profileImage != null'>, profile_image = #{profileImage} </if>",
+        "WHERE email = #{email}",
+        "</script>"
+    })
+    void updateUser(User user);
+
+    // 🔹 회원 탈퇴 요청 저장
+    @Insert("INSERT INTO user_deletion_requests (email, reason, created_at) " +
+            "VALUES (#{email}, #{reason}, NOW())")
+    void requestAccountDeletion(@Param("email") String email, @Param("reason") String reason);
+
+    // 🔹 유저 알림 목록 조회
+    @Select("SELECT * FROM notifications WHERE receiver_email = #{email}")
+    List<Notification> getUserNotifications(@Param("email") String email);
+
+    // 🔹 유저 알림 읽음 처리
+    @Update("UPDATE notifications SET is_read = TRUE WHERE id = #{notificationId} AND receiver_email = #{email}")
+    void markUserNotificationAsRead(@Param("notificationId") Long notificationId, @Param("email") String email);
+  
+    // ✅ 특정 알림 삭제
+    @Delete("DELETE FROM notifications WHERE id = #{id}")
+    void deleteUserNotification(@Param("id") Long id);
+
+
+
+    // 🔹 특정 유저의 게시물 조회
+    @Select("SELECT boardId, title, views, createdAt FROM board WHERE authorEmail = #{email}")
+    List<krhBoardVO> findBoardsByUserEmail(@Param("email") String email);
+
+    /** ✅ 유저 즐겨찾기 관련 기능 **/
+    @Select("""
+    	    SELECT 
+    	        r.recipes_id AS recipeId,
+    	        r.foodName,
+    	        r.foodImg
+    	    FROM favorite f
+    	    JOIN recipes r ON f.recipe_id = r.recipes_id
+    	    WHERE f.user_id = #{userId}
+    	""")
+    	List<Map<String, Object>> getFavoriteRecipesByUser(Long userId);
+
+    
+    // 유저의 즐겨찾기 목록 조회
+    @Select("SELECT * FROM favorite WHERE user_id = #{userId}")
+    List<Favorites> getFavoritesByUserId(Long userId);
+
+    // 즐겨찾기 삭제
+ // 🔹 삭제된 행 수(int)를 반환하여 삭제 성공 여부를 확인 가능
+    @Delete("DELETE FROM favorite WHERE user_id = #{userId} AND recipe_id = #{recipeId}")
+    int removeFavorite(Long userId, Long recipeId);
+
+    // 🔹 1:1 문의 등록
+    @Insert("INSERT INTO inquiries (user_email, title, content, created_at) VALUES (#{userEmail}, #{title}, #{content}, NOW())")
+    void insertInquiry(Inquiry inquiry);
+
+    // 🔹 1:1 문의 목록 조회
+    @Select("SELECT * FROM inquiries WHERE user_email = #{email}")
+    List<Inquiry> getUserInquiries(@Param("email") String email);
+
+    // 🔹 1:1 문의 삭제
+    @Delete("DELETE FROM inquiries WHERE id = #{inquiryId} AND user_email = #{email}")
+    void deleteUserInquiry(@Param("inquiryId") Long inquiryId, @Param("email") String email);
+    
+    // 로그인 기록 저장
+    @Update("UPDATE users SET last_login = NOW() WHERE id = #{userId}")
+    void updateLastLogin(Long userId);
+    @Update("""
+    	    UPDATE users 
+    	    SET login_count = login_count + 1, 
+    	        last_login_update = NOW() 
+    	    WHERE email = #{email} 
+    	        AND (last_login_update IS NULL OR last_login_update < NOW() - INTERVAL 1 HOUR)
+    	""")
+    	void incrementLoginCount(@Param("email") String email);
+    // 로그인 기록 저장 
+    @Insert("INSERT INTO login_history (user_id, login_time) VALUES (#{userId}, NOW())")
+    void insertLoginHistory(@Param("userId") Long userId);
+
+}

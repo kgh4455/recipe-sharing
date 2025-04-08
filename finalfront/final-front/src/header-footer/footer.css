@@ -1,0 +1,45 @@
+.footer{
+    background-color: #FFB58D;
+    align-items: center;
+    text-align: center;
+    height: 150px;
+    padding: 10px 50px;
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+/* .footer-logo{
+    display: flex;
+    align-items: center;
+}
+.footer-logo img{
+    max-width: 100%;
+    width: 80px;
+    height: auto;
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.footer-logo h1{
+    color: #5e5e5e;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    font-family: 'YOnepickTTF-Bold';
+} */
+
+.footer-content{
+    color: #5e5e5e;
+    text-align: left;
+}
+
+.admin-btn{
+   margin-right: 10px;
+   margin-left: auto;
+   display: flex;
+}

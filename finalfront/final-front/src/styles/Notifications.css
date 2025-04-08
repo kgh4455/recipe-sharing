@@ -1,0 +1,49 @@
+/* 📌 알림 페이지 스타일 */
+.notifications-container {
+    text-align: center;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+.notifications-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #FFA575; /* ✅ 강조된 주황색 제목 */
+}
+
+.notifications-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.notifications-table th,
+.notifications-table td {
+    border: 1px solid  #FFD2B9;
+    padding: 10px;
+    text-align: center;
+}
+
+.notifications-table th {
+    background: #FFA575; /* ✅ 검정 대신 주황 */
+    font-weight: bold;
+}
+
+.unread-label{
+    color: #FF8746;
+    font-weight: bold;
+}
+
+.del-im{
+    background-color: #EEEEEE;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    margin-right: 0;
+    color: #5e5e5e;
+}
+
+.del-im:hover {
+    cursor: pointer;
+    background-color: #d2d2d2;
+  }

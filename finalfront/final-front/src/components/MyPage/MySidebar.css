@@ -1,0 +1,31 @@
+.mypage-sidebar {
+    width:100%;
+    max-width: 300px;
+    padding: 30px;
+    border-right: 1px solid #ccc;
+  }
+  
+  .mypage-sidebar h2 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+  
+  .mypage-sidebar .mypage-sidebarul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .mypage-sidebar .mypage-sidebarli{
+    margin-bottom: 15px;
+    border:none;
+  }
+  
+  .mypage-sidebar a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .mypage-sidebar a:hover {
+    color: #ff8a00;
+  }
+  

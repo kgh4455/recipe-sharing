@@ -1,0 +1,187 @@
+@import "./FormStyles.css"; /* ✅ 공통 스타일 불러오기 */
+
+/* 전체 컨테이너 스타일 */
+.user-activity-container {
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+.big-title2{
+  color: #FFA575;
+  margin: 100px 0 80px;
+  text-align: center;
+}
+
+/* 탭 버튼 스타일 */
+.tab-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 80px;
+  flex-wrap: wrap;
+}
+
+.tab-buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  background: #ddd;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.tab-buttons button.active {
+  background-color: #FFA575;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+.tab-buttons button:hover {
+  background-color: #ff9d68;
+}
+
+.tab-buttons button.none{
+  padding: 10px 20px;
+  border: none;
+  background-color: #eeeeee;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+  color: #5e5e5e;
+}
+
+.tab-buttons button.none:hover{
+  background-color: #FFA575;
+  color:white;
+}
+
+/* 내가 쓴 글 섹션 스타일 */
+.user-posts-section {
+  margin-bottom: 30px;
+}
+
+.activity-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.activity-table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* 관심 목록 스타일 */
+.favorites-section {
+  text-align: center;
+}
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  justify-content: center;
+}
+
+.favorite-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f9f9f9;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.favorite-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.buttonz-container{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.favorite-detail-btn, .favorite-remove-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 20px;
+  width:100%;
+  margin:0;
+  margin-bottom:40px;
+}
+
+.favorite-detail-btn {
+  background-color: #FFA575;
+  color: white;
+}
+
+.favorite-remove-btn {
+  background: #eeeeee;
+  color: #5e5e5e;
+}
+
+
+.favorite-detail-btn:hover {
+  background-color: #ff9d68;
+}
+
+.favorite-remove-btn:hover {
+  background: #d2d2d2;
+}
+
+.thz{
+  text-align: center;
+  border-collapse: collapse;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1024px) {
+  .user-activity-container {
+    min-width: 100%;
+    padding: 20px;
+  }
+
+  .favorites-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .tab-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .favorites-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+
+  .activity-table td {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .favorites-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tab-buttons button {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+}

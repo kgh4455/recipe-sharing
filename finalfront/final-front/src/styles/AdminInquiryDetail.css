@@ -1,0 +1,91 @@
+/* ✅ 전체 컨테이너 */
+.inquiry-detail-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  /* ✅ 작성자 정보 */
+  .inquiry-header {
+    padding: 20px;
+    background: #333;
+    color: white;
+    border-radius: 10px;
+    text-align: left;
+  }
+  
+  .inquiry-header p {
+    font-size: 16px;
+    margin: 8px 0;
+    line-height: 1.5;
+  }
+  
+  .inquiry-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  /* ✅ 문의 내용 박스 */
+  .inquiry-content-box {
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+  }
+  
+  .inquiry-content-box h3 {
+    font-size: 18px;
+    color: #444;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+  
+  .inquiry-content-box p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    text-align: left;
+    padding: 10px;
+    background: #ffffff;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  /* ✅ 답변 박스 */
+  .reply-box {
+    padding: 15px;
+    background: #e9ecef;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+  }
+  
+  .reply-box h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: left;
+  }
+  
+  .reply-box textarea {
+    width: 90%;
+    height: 120px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none;
+    background: #fff;
+  }
+  
+.boxx{
+  width:100%;
+  text-align: left;
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mapper.krhNotificationMapper">
+
+	<insert id="insertNotification" parameterType="com.project.model.Notification">
+	    INSERT INTO notifications (receiver_email, message, is_read, created_at, boardId)
+	    VALUES (#{receiverEmail}, #{message}, false, now(),#{boardId});
+	</insert>
+	
+</mapper>

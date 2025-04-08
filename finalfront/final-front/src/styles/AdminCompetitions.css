@@ -1,0 +1,156 @@
+
+.big2-title{
+  color:#ff9d68;
+  margin-bottom: 80px;
+}
+  /* 부가 정보 */
+  .recipea-meta {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+  }
+  
+  /* 버튼 그룹 */
+  .btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  
+  .ac-p{
+    margin-top:10px;
+    color:#333;
+    margin-bottom: 5px;
+    text-align: left;
+  }
+  .approves-btn{
+    background: #FFA575;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+  }
+
+  .approves-btn:hover{
+    background-color: #ff9d68;
+  }
+  /* 각 버튼 스타일 */
+  .approve-btn{
+    background: #FFA575;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    width:50%;
+  }
+  
+  .dellbtn{
+    background-color: #EEEEEE;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    margin-right: 0;
+    color: #5e5e5e;
+    width:50%;
+  }
+
+  .dellbtn:hover{
+    background-color: #d2d2d2;
+  }
+
+  .approve-btn:hover{
+    background-color: #ff9d68;
+  }
+  /* 탭 버튼 */
+  .tab-btn {
+    padding: 10px 20px;
+    margin: 0 5px;
+    background-color: #ddd;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .tab-btn.active {
+    background-color: #ff7b54;
+    color: white;
+  }
+  
+  /* 모달 스타일 */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* 모달 안 이미지 */
+  .modal-content img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border-radius: 8px;
+  }
+  
+  /* 모달 안 텍스트 */
+  .modal-content p {
+    margin: 8px 0;
+    font-size: 15px;
+  }
+  /* 🔸 탭 버튼 컨테이너 (탭 버튼 묶음 정렬용) */
+.tab-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+  
+  /* 🔸 탭 버튼 기본 스타일 */
+  .tab-btn {
+    padding: 10px 20px;
+    background-color: #ddd;
+    color: #333;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+  }
+  
+  /* 🔸 활성 탭 스타일 */
+  .tab-btn.active {
+    background-color: #ff7b54;
+    color: white;
+    font-weight: bold;
+  }
+  /* ✅ 모달 이미지 크기 조정 */
+.modal-img {
+    width: 100%;
+    max-width: 400px; /* 너비 제한 */
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    object-fit: cover;
+  }

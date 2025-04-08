@@ -1,0 +1,39 @@
+h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.statistics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 한 줄에 두 개씩 배치 */
+  gap: 50px;
+  margin-top: 100px;
+  width: 100%;
+}
+
+.chart-box {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.chart-box:hover {
+  transform: translateY(-5px);
+}
+
+@media (max-width: 1024px) { /* 태블릿 이하에서 한 줄에 한 개씩 */
+  .statistics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .big-title {
+    font-size: 20px;
+  }
+  
+  h3 {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,88 @@
+.likedislike-content {
+  display: flex;             /* 가로 정렬 */
+  align-items: center;       /* 세로 중앙 정렬 */
+  justify-content: center;   /* 가로 중앙 정렬 */
+  margin-bottom: 80px;
+  font-family: "Gothic A1", serif;
+  font-size: 30px;
+  gap: 50px;                 /* 버튼 사이 간격 */
+}
+
+/* 좋아요 / 싫어요 버튼 스타일 */
+.likedislike-content button {
+  background-color: #EEEEEE;
+  border: none;
+  font-weight: bold;
+  font-size: 40px;
+  color: #5E5E5E;
+  padding: 20px 30px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* 버튼 hover 효과 */
+.likedislike-content button:hover {
+  cursor: pointer;
+  background-color: #DADADA;
+  transform: scale(1.1); /* 살짝 확대 */
+}
+
+/* 숫자 표시 */
+.likedislike-content div {
+  display: inline-block;
+  font-size: 30px;
+  align-items: center;
+  margin: 0;
+}
+
+/* 💡 반응형 스타일 (태블릿 크기) */
+@media (max-width: 1024px) {
+  .likedislike-content {
+      font-size: 24px;
+      gap: 30px;
+  }
+
+  .likedislike-content button {
+      font-size: 30px;
+      padding: 12px 18px;
+  }
+
+  .likedislike-content div {
+      font-size: 24px;
+  }
+}
+
+/* 💡 반응형 스타일 (스마트폰 크기) */
+@media (max-width: 768px) {
+  .likedislike-content {
+      font-size: 20px;
+      gap: 20px;
+  }
+
+  .likedislike-content button {
+      font-size: 24px;
+      padding: 10px 14px;
+      border-radius: 20px;
+  }
+
+  .likedislike-content div {
+      font-size: 20px;
+  }
+}
+
+/* 💡 반응형 스타일 (작은 스마트폰 크기) */
+@media (max-width: 480px) {
+  .likedislike-content {
+      flex-direction: column; /* 모바일에서는 세로 정렬 */
+      gap: 15px;
+  }
+
+  .likedislike-content button {
+      font-size: 20px;
+      padding: 8px 12px;
+  }
+
+  .likedislike-content div {
+      font-size: 18px;
+  }
+}

@@ -1,0 +1,73 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* 모달 본문 스타일 */
+.modal-content {
+  background: white;
+  padding: 20px;
+  width: 50%;
+  max-width: 600px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 신고 정보 스타일 */
+.report-section {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.report-section h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.report-section p {
+  margin: 5px 0;
+}
+
+/* 게시글 정보 스타일 */
+.report-post pre {
+  background: #eaeaea;
+  padding: 10px;
+  border-radius: 5px;
+  white-space: pre-wrap;
+}
+
+/* 경고 메시지 입력란 스타일 */
+.send-warning {
+  margin-top: 100px;
+}
+
+.send-warning input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

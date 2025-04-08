@@ -1,0 +1,45 @@
+body {
+  margin:0;
+  padding:0;
+  font-family: 'NEXON Lv1 Gothic OTF';
+  }
+
+button{
+  border-radius: 20px;
+  border: none;
+  padding:10px 20px;
+  font-family: 'NEXON Lv1 Gothic OTF';
+  transition: background-color 0.3s ease;
+}
+
+button:hover{
+  cursor: pointer;
+}
+
+@font-face {
+  font-family: 'NEXON Lv1 Gothic OTF';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/NEXON Lv1 Gothic OTF.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'YOnepickTTF-Bold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/YOnepickTTF-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PyeongChangPeace-Bold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'PyeongChangPeace';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/PyeongChangPeace-Regular.woff2') format('woff2');
+  font-weight: normal; /* 기본 두께 */
+  font-style: normal;
+}

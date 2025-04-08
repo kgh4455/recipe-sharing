@@ -1,0 +1,124 @@
+/* RecipeForm.css */
+.recipe-form {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+.input-field input[type="text"],
+.input-field input[type="file"],
+.input-field input[type="number"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.gyeonggo2{
+    margin-bottom: 80px !important;
+    background-color: #FFD2B9;
+    padding: 40px;
+    border-radius: 20px;
+    line-height: 35px;
+    font-size: 18px;
+}
+
+.input-field input[type="text"]:focus,
+.input-field input[type="file"]:focus {    
+    border-color: #ff9861;
+    outline: none;
+}
+
+.ingredient-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ingredient-input input {
+    flex: 1;
+}
+
+.input-field-ur{
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+    font-family: 'NEXON Lv1 Gothic OTF';
+}
+
+  
+.input-field-ur:focus {
+    border-color: #ff9861;
+    outline: none;
+  }
+  
+
+.recipe-form div {
+    margin-bottom: 15px;
+}
+
+.recipe-form input[type="radio"] {
+    margin-right: 5px;
+}
+
+.form2-group{
+    margin-bottom: 40px;
+}
+.form2-group input{
+        padding: 12px 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #fff;
+        font-size: 16px;
+        transition: border-color 0.3s;
+        margin-right: 0;
+        margin-bottom:20px;
+}
+
+.dangae{
+    margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+    .recipe-form {
+        max-width: 90%;
+    }
+}
+
+.userrecipe-submit{
+    padding: 10px 20px;
+    background-color: #FFA575;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    color:white;
+}
+
+.userrecipe-submit:hover{
+    background-color: #ff9d68;
+    cursor: pointer;
+}
+
+.big-title{
+    margin-bottom: 100px;
+}
+
+.userrecipe-ingredient-add{
+    padding: 10px 20px;
+    background-color: #FFA575;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    display: flex;
+}
+
+.userrecipe-ingredient-add:hover{
+    background-color: #ff9d68;
+    cursor: pointer;
+}

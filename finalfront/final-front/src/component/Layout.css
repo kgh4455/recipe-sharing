@@ -1,0 +1,26 @@
+.layout-main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* .content-container {
+    display: flex; 
+    margin-left: 100px;
+    gap: 50px;
+} */
+
+.sidebar_main {
+    width: 150px;
+    min-width: 150px; 
+    height: 100vh;
+    background-color: antiquewhite;
+    margin: 0;
+}
+
+.pages {
+    background-color: white;
+    padding: 0;
+    margin-top: 100px;
+}

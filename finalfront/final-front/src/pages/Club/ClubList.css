@@ -1,0 +1,183 @@
+/* 기본 레이아웃 */
+.club-page {
+  width: 100%;
+  max-width: 1400px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0;
+
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+.tag-btn{
+  border-radius: 20px;
+  transition: background-color 0.3s ease; /* border-color 변경 시 부드럽게 애니메이션 적용 */
+}
+.tag-btn:hover{
+  background-color: #FFA575;
+}
+
+/* 태그 리스트 */
+.tag-list {
+  margin-bottom: 80px;
+}
+
+.tag-list button {
+  font-family: 'NEXON Lv1 Gothic OTF';
+  font-size: 18px;
+  transition: font-size 0.3s ease;
+}
+
+/* 검색 컨테이너 */
+.search-container-club {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 80px;
+  gap: 10px;
+}
+
+.search-club {
+  border-radius: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  font-family: 'NEXON Lv1 Gothic OTF';
+  width: 300px;
+}
+
+.search-container-club .search-btn {
+  margin-left: 20px;
+  background-color: #FFA575;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  color:white;
+}
+
+.search-container-club .search-btn:hover {
+  background-color: #ff9d68;
+}
+
+/* 위로 가는 버튼 */
+.totop {
+  position: fixed !important;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #FFA575;
+  color: #fff;
+  padding: 10px;
+  border-radius: 80px;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  font-size: 40px;
+  transition: transform 0.3s, font-size 0.3s;
+}
+
+.totop:hover {
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* 카드 리스트 */
+.clublistul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+  list-style: none;
+  padding: 0;
+}
+
+.clublistli {
+  border: 1px solid #ccc;
+  padding: 15px;
+  background-color: #FFD2B9;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 350px;
+  margin: auto;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 1200px) {
+  .clublistul {
+    gap: 30px;
+  }
+  .tag-list button {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-container-club {
+    justify-content: center;
+  }
+  .totop {
+    right: 15px;
+    font-size: 30px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .big-title {
+    font-size: 1.5em;
+  }
+  .totop {
+    right: 10px;
+    font-size: 25px;
+    padding: 6px;
+  }
+  .tag-list button {
+    font-size: 14px;
+  }
+}
+
+/* 버튼 스타일 */
+.add-club-btn {
+  padding: 10px 20px;
+  border: none;
+  background-color: #FFA575;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  color:white;
+}
+
+.load-more-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px auto 100px;
+  padding: 12px 24px;
+  background-color: #FFA575;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  width:60%;
+  margin-top: 80px;
+  color:white;
+}
+
+.add-club-btn:hover, .load-more-btn:hover {
+  background-color: #ff9d68;
+}
+
+/* 추가 동호회 버튼 */
+.add-club {
+  margin-top: 80px;
+  text-align: right;
+}
+
+/* 클럽 이미지 리스트 */
+.club-image-list {
+  display: flex;
+  justify-content: center;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}

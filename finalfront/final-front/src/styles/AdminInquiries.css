@@ -1,0 +1,30 @@
+/* 🔹 1:1 문의 관리 페이지 전체 레이아웃 */
+
+/* 🔹 버튼 스타일 */
+.detail-button {
+    background: #FFA575;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.detail-button:hover{
+    background-color: #ff9d68;
+}
+
+.status-replied{
+    color: #FF8746;
+    font-weight: bold;
+}
+/* 🔹 상태 스타일 */
+.status-complete {
+    color: #FF8746;
+    font-weight: bold;
+}
+
+.status-pending {
+    color: #FF8746;
+    font-weight: bold;
+}

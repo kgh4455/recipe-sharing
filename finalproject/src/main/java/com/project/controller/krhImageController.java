@@ -1,0 +1,116 @@
+package com.project.controller;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import org.apache.hc.core5.http.HttpStatus;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+@CrossOrigin(origins = "http://localhost:5173")
+@RestController
+@RequestMapping("/uploads")
+public class krhImageController {
+
+    private static final String uploadDir = System.getProperty("user.dir") + "/uploads/";
+    
+    @GetMapping("/clubimage/{filename}")
+    public ResponseEntity<Resource> getFile(@PathVariable String filename) {
+        try {
+            Path filePath = Paths.get(uploadDir).resolve(filename).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (!resource.exists() || !resource.isReadable()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            // MIME 타입 자동 설정
+            String contentType = getContentType(filename);
+            
+            return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType(contentType))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
+                    .body(resource);
+        } catch (MalformedURLException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+    
+    @PostMapping("/boardimage")
+    public ResponseEntity<Map<String, String>> uploadImage(@RequestParam("file") MultipartFile file) {
+        Map<String, String> response = new HashMap<>();
+        try {
+            String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename(); // UUID 적용
+            Path filePath = Paths.get(uploadDir + fileName);
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+            response.put("filename", fileName);
+            return ResponseEntity.ok(response); // 프론트에서 이 URL을 본문에 삽입하면 됨
+        } catch (Exception e) {
+            response.put("error", "파일 업로드 실패");
+            return ResponseEntity.status(500).body(response);
+        }
+    }
+    
+    @GetMapping("/boardimage/{fileName}")
+    public ResponseEntity<Resource> getFileBoard(@PathVariable String fileName) {
+        try {
+            Path filePath = Paths.get(uploadDir + fileName);
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (!resource.exists() || !resource.isReadable()) {
+                return ResponseEntity.notFound().build();
+            }
+
+            // MIME 타입 자동 설정
+            String contentType = getContentType(fileName);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType(contentType))
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + resource.getFilename() + "\"")
+                    .body(resource);
+        } catch (MalformedURLException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+    
+    @GetMapping("/api/userrecipes/{filename}")
+    public ResponseEntity<byte[]> getImage(@PathVariable("filename") String filename) throws IOException {
+    	File file = new File(uploadDir + filename);
+        
+        // 파일이 존재하는지 확인
+        if (!file.exists()) {
+            return ResponseEntity.status(HttpStatus.SC_NOT_FOUND).body(null);
+        }
+
+        // 이미지 파일을 byte[]로 읽어오기
+        try (InputStream in = new FileInputStream(file)) {
+            byte[] media = in.readAllBytes();
+
+            // 응답 헤더 설정
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.parseMediaType(getContentType(file.getName())));
+
+            return new ResponseEntity<>(media, headers, HttpStatus.SC_OK);
+        }
+    }
+    
+    private String getContentType(String filename) {
+        if (filename.endsWith(".png")) return "image/png";
+        if (filename.endsWith(".jpg") || filename.endsWith(".jpeg")) return "image/jpeg";
+        if (filename.endsWith(".gif")) return "image/gif";
+        return "application/octet-stream";
+    }
+}

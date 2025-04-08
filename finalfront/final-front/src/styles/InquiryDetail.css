@@ -1,0 +1,74 @@
+.inq-de {
+  margin-top: 100px;
+  animation: fadeIn 0.5s forwards;
+  text-align: left;
+  width: 100%;
+}
+
+/* 제목 스타일 */
+.inquirys-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+/* 날짜 스타일 */
+.inquirys-date {
+  font-size: 14px;
+  color: #888888;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+/* 본문 박스 */
+.inquirys-content-box,
+.inquirys-reply-box {
+  margin-top: 80px;
+  font-size: 20px;
+}
+
+/* 회색 텍스트 */
+.inq-h {
+  color: #888888;
+}
+
+/* 🔹 반응형 디자인 추가 */
+@media (max-width: 1024px) {
+  .inquirys-title {
+    font-size: 22px;
+  }
+
+  .inquirys-content-box,
+  .inquirys-reply-box {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .inq-de {
+    margin-top: 50px;
+  }
+
+  .inquirys-title {
+    font-size: 20px;
+  }
+
+  .inquirys-content-box,
+  .inquirys-reply-box {
+    margin-top: 40px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .inquirys-title {
+    font-size: 18px;
+  }
+
+  .inquirys-content-box,
+  .inquirys-reply-box {
+    font-size: 18px;
+    margin-top: 30px;
+  }
+}

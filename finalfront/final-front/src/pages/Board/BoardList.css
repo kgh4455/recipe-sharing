@@ -1,0 +1,148 @@
+/* 전체 페이지 규격 */
+.page {
+    width: 100%;
+    max-width: 1400px;
+    text-align: center;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+
+/* 테이블 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+/* 제목 스타일 */
+.big-title {
+    color: #FFA575;
+    margin: 100px 0 80px;
+    text-align: center;
+}
+
+/* 테이블 행 스타일 */
+.tdz td {
+    border-bottom: 2.2px solid rgb(181, 181, 181);
+    padding: 25px;
+}
+
+.tdz tr {
+    transition: background-color 0.3s ease;
+}
+
+.tdz tr:hover {
+    cursor: pointer;
+    /* background-color: #FFD2B9;
+    color: #5E5E5E; */
+}
+
+/* 페이지네이션 스타일 */
+.board-paging {
+    margin: 80px 0 100px;
+    text-align: center;
+}
+
+.board-paging button {
+    border-radius: 10px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'NEXON Lv1 Gothic OTF';
+}
+
+.board-paging button:hover {
+    background-color: #FFA575;
+    color: white;
+}
+
+.board-paging button:disabled {
+    background-color: #e0e0e0;
+    color: #b0b0b0;
+    cursor: not-allowed;
+}
+
+/* 검색창 스타일 */
+.search-container-board {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 80px;
+    gap: 10px;
+}
+
+.search-container-board .search-board {
+    border-radius: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-family: 'NEXON Lv1 Gothic OTF';
+    width: 300px;
+}
+
+.search-btnn {
+    padding: 10px 20px;
+    border: none;
+    background-color: #FFA575;
+    color: white;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.search-btnn:hover {
+    background-color: #ff9d68;
+    cursor: pointer;
+}
+
+/* 글쓰기 버튼 */
+.write-button-container {
+    margin-top: 40px;
+    text-align: right;
+}
+
+.write-btn {
+    background-color: #FFA575;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.write-btn:hover {
+    background-color: #ff9861;
+    cursor: pointer;
+}
+
+/* 댓글 스타일 */
+.replies {
+    background-color: #F7F7F7;
+    padding: 20px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tdz td {
+        padding: 10px;
+    }
+
+    .big-title {
+        font-size: 24px;
+        margin: 50px 0 40px;
+    }
+
+    .search-container-board {
+        justify-content: center;
+    }
+
+    .board-paging button, .write-btn {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}

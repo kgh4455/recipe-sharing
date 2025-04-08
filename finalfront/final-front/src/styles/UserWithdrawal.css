@@ -1,0 +1,9 @@
+@import "./FormStyles.css"; /* ✅ 공통 스타일 불러오기 */
+
+/* 📌 회원 탈퇴 폼 스타일 */
+.withdrawal-form-container {
+    text-align: center;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+}
+

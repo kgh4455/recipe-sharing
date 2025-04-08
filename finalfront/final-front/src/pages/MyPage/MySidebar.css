@@ -1,0 +1,30 @@
+
+.mypage-sidebar {
+    width: 240px;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+  }
+  
+  .mypage-sidebar h2 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+  
+  .mypage-sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .mypage-sidebar li {
+    margin-bottom: 15px;
+  }
+  
+  .mypage-sidebar a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .mypage-sidebar a:hover {
+    color: #ff8a00;
+  }
+  

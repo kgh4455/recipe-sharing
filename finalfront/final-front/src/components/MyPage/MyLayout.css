@@ -1,0 +1,23 @@
+.mypage-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width:100%;
+    max-width: 1400px;
+  }
+  
+  .mypage-main {
+    text-align: center;
+    display: flex;
+    flex: 1;
+  }
+  
+  .mypage-content {
+    flex: 1;
+    padding: 20px;
+  }
+  .mypage-container {
+    display: flex;
+    flex-direction: row;
+    min-height: 70vh; /* 푸터가 위로 올라오지 않도록 최소 높이 설정 */
+  }

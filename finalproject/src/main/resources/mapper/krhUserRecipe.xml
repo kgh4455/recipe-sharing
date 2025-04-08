@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mapper.krhUserRecipeMapper">
+    <!-- 레시피 추가 -->
+    <insert id="insertUserRecipe" useGeneratedKeys="true" keyProperty="userRecipesId" parameterType="com.project.model.UserRecipe">
+        INSERT INTO user_recipes (foodName, foodTime, foodImg, category_id, user_id, step1, step2, step3, step4, step5, step6, stepImg1, stepImg2, stepImg3, stepImg4, stepImg5, stepImg6)
+        VALUES (#{foodName}, #{foodTime}, #{foodImg}, #{categoryId}, #{userId}, #{step1}, #{step2}, #{step3}, #{step4}, #{step5}, #{step6}, #{stepImg1}, #{stepImg2}, #{stepImg3}, #{stepImg4}, #{stepImg5}, #{stepImg6})
+    </insert>
+
+    <!-- 재료 추가 -->
+    <insert id="insertIngredientsIfNotExist" parameterType="String">
+        INSERT INTO ingredients (name)
+        SELECT #{ingredient}
+        WHERE NOT EXISTS (
+            SELECT 1 FROM ingredients WHERE name = #{ingredient}
+        );
+    </insert>
+
+    <!-- 재료-레시피 관계 추가 -->
+    <insert id="linkUserRecipeIngredient" parameterType="map">
+        INSERT INTO recipe_ingredients (user_recipes_id, ingredient_id)
+        VALUES (#{userRecipesId}, #{ingredientId})
+    </insert>
+    
+    <!-- 3. 재료 ID 조회 -->
+    <select id="getIngredientIdByName" parameterType="String" resultType="Long">
+        SELECT ingredient_id
+        FROM ingredients
+        WHERE name = #{ingredient}
+    </select>
+    
+    <resultMap id="IngredientResultMap" type="com.project.model.Ingredients">
+        <result column="ingredient_id" property="ingredientId" jdbcType="INTEGER" javaType="Long"/>
+    </resultMap>
+</mapper>

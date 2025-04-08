@@ -1,0 +1,73 @@
+
+.report-popup{
+    margin:0;
+    padding:0;
+    width: 500px;
+    justify-self: center;
+    align-self: center;
+}
+
+.report-title{
+    text-align: center;
+    color:#FFA575;
+    padding:30px;
+}
+
+.report-button-submit{
+    background-color: #FFA575;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    width:100%;
+    text-align: center;
+    color:white;
+}
+
+.report-button-submit:hover{
+  background-color: #ff9d68;
+}
+
+.report-reason-item {
+    border: 1px solid #ccc;  /* 테두리 */
+    padding: 20px;           /* 내부 여백 */
+    margin: 5px 0;           /* 위아래 간격 */
+    border-radius: 5px;      /* 둥근 모서리 */
+    display: flex;           /* 정렬 */
+    align-items: center;     /* 수직 정렬 */
+    gap: 10px;               /* 간격 */
+    transition: background-color 0.3s ease;
+    cursor: pointer;         /* 마우스 올릴 때 손가락 모양 */
+  }
+  
+  .report-reason-item:hover {
+    background-color: #FFD2B9;
+  }
+  
+  /* 기타 입력창 스타일 */
+  .report-custom-reason {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;  /* 세로 정렬 */
+    gap: 5px;               /* 간격 */
+    background-color: #fff;  /* 배경 흰색 */
+  }
+  
+  .report-custom-reason textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: 14px;
+    padding: 5px;
+    font-family: 'NEXON Lv1 Gothic OTF';
+  }
+  
+  .report-button-submit{
+    font-size: 18px;
+    margin-bottom: 80px;
+    margin-top: 40px;
+  }

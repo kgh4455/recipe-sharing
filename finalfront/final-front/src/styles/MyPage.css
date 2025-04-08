@@ -1,0 +1,18 @@
+.mypages-container{
+    width: 100%;
+    max-width: 1400px;
+    text-align: center;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+  }
+  
+
+  .mypages-content{
+    width: 100%;
+    max-width: 1400px;
+    text-align: center;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards;
+  }

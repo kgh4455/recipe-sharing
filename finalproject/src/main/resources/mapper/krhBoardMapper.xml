@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mapper.krhBoardMapper">
+	
+	<!--요리 고민방 목록 총 게시글 갯수(검색 포함) -->
+	<select id="countBoard" resultType="int">
+		select count(*) from board
+		<where>
+			<if test="findStr != null and findStr !=''">
+				title like concat('%',#{findStr},'%')
+			</if>
+		</where>
+	</select>
+		
+	<!-- 요리 고민방 페이징 후 게시글 조회(검색 포함) -->
+	<select id="getBoardList" resultType="com.project.model.krhBoardVO">
+		SELECT * FROM board
+		<where>
+			<if test="findStr != null and findStr !=''">
+				title like concat('%',#{findStr},'%')
+			</if>
+		</where>
+	    ORDER BY createdAt DESC
+	    LIMIT #{start}, #{size}
+	</select>
+	
+	<!--요리 고민방 목록 단건 상세 조회 -->
+	<select id="getBoardById" parameterType="int" resultType="com.project.model.krhBoardVO">
+		select * from board
+		where boardId=#{boardId}
+	</select>
+	
+	<!--요리 고민방 조회수 -->
+	<update id="incrementViews" parameterType="int">
+		update board set views=views+1 where boardId=#{boardId}
+	</update>
+	
+	<!--요리 고민방 단건 수정-->
+	<update id="updateBoard" parameterType="com.project.model.krhBoardVO">
+		update board 
+		set title=#{title}, content=#{content}, updatedAt=now() where boardId=#{boardId}
+	</update>
+	
+	<!--요리 고민방 단건 추가 -->
+	<insert id="insertBoard" parameterType="com.project.model.krhBoardVO">
+		insert into board(title, author, authorId, content, authorEmail, createdAt) values (#{title}, #{author}, #{authorId}, #{content}, #{authorEmail}, now())
+	</insert>
+	
+	<!--요리 고민방 단건 삭제 
+	<select id="getAuthorEmailByBoardId" resultType="String">
+		select authorEmail from board where boardId=#{boardId}
+	</select>-->
+	
+	<delete id="deleteBoard" parameterType="map">
+		delete from board where boardId=#{boardId} and authorEmail=#{authorEmail}
+	</delete>
+	
+	<!--요리 고민방 신고하기-->
+	<insert id="reportBoard" parameterType="com.project.model.krhReportVO">
+		insert into reports(boardId, reporterId, reporter, reason, reportedAt) values(#{boardId}, #{reporterId}, #{reporter}, #{reason}, now())
+	</insert>
+	
+	<!--신고한 사람인지 확인하기 -->
+	<select id="isBoardReported" resultType="boolean">
+	    SELECT COUNT(*) > 0
+	    FROM reports
+	    WHERE boardId = #{boardId} AND reporterId = #{reporterId}
+	</select>
+
+	<!-- 좋아요 상태 업데이트 -->
+	<insert id="updateLikeStatus">
+	    INSERT INTO boardLike(boardId, userEmail, likeType)
+	    VALUES (#{boardId}, #{userEmail}, #{status})
+	    ON DUPLICATE KEY UPDATE likeType = #{status}
+	</insert>
+	
+	<!-- 좋아요/싫어요 취소 -->
+	<update id="removeLikeStatus">
+	    UPDATE boardLike
+	    SET likeType = 'none'
+	    WHERE boardId = #{boardId} AND userEmail = #{userEmail}
+	</update>
+	
+	<!-- 좋아요 상태 조회 -->
+	<select id="getLikeStatus" resultType="String">
+	    SELECT likeType FROM boardLike WHERE boardId = #{boardId} AND userEmail = #{userEmail}
+	</select>
+	
+	<!-- 좋아요 카운트 -->
+	<select id="getLikeCount" resultType="int">
+	    SELECT COUNT(*) FROM boardLike WHERE boardId = #{boardId} AND likeType = 'like'
+	</select>
+	
+	<!-- 싫어요 카운트 -->
+	<select id="getDislikeCount" resultType="int">
+	    SELECT COUNT(*) FROM boardLike WHERE boardId = #{boardId} AND likeType = 'dislike'
+	</select>
+	
+	<!--게시글 주인 아이디 -->
+	<select id="getUserbyBoardId" parameterType="int" resultType="String">
+		select authorEmail from board where boardId=#{boardId}
+	</select>
+</mapper>

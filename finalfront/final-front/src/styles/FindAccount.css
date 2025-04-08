@@ -1,0 +1,211 @@
+/* ✅ 전체 컨테이너 스타일 */
+.find-account-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+  min-height: 700px;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ✅ 제목 스타일 */
+.find-account-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #FFA575;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* ✅ 탭 버튼 스타일 */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.tab-button.active {
+  background-color: #FFA575;
+  color: white;
+}
+
+.tab-button.none{
+  color: #5e5e5e;
+}
+
+.tab-button:hover {
+  background-color: #ff9d68;
+  color:white;
+}
+
+/* ✅ 입력 폼 스타일 */
+.tab-content {
+  width: 500px;
+  padding: 40px;
+  border-radius: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* ✅ 인증번호 입력창 스타일 */
+.inputl-field {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background-color: #FFD2B9;
+  font-size: 16px;
+  outline: none;
+  margin-top: 5px;
+  display: block;
+  box-sizing: border-box;
+}
+
+/* ✅ 버튼 정렬 */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+/* ✅ 모달 배경 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ✅ 모달 내부 */
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* ✅ 모달 제목 */
+.modal-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #FFA575;
+  margin-bottom: 20px;
+}
+/* ✅ 인증번호 입력 필드 & 버튼 한 줄 정렬 */
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 버튼을 오른쪽 정렬 */
+  gap: 10px; /* 입력창과 버튼 사이 여백 */
+  width: 100%;
+  max-width: 400px; /* ✅ 한 줄 최대 너비 제한 */
+}
+
+/* ✅ 입력 필드 크기 조정 */
+.input-group .inputl-field {
+  flex: 1; /* 남은 공간을 차지 */
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #FFD2B9;
+  border: none;
+  font-size: 16px;
+}
+
+/* ✅ 버튼 크기 조정 */
+.input-group {
+  padding: 10px 15px; /* ✅ 버튼 크기 고정 */
+  border-radius: 10px;
+  background-color: #FFA575;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  font-size: 14px;
+  text-align: center;
+  width:100%;
+}
+
+
+/* ✅ 입력창 크기 조절 (너무 둥글지 않도록 수정) */
+.inputl-field {
+  width: calc(100% - 20px); /* 📌 박스 크기에 맞게 자동 조정 */
+  padding: 12px;
+  border: none;
+  border-radius: 10px; /* 📌 너무 둥글지 않게 */
+  background-color: #FFD2B9;
+  font-size: 16px;
+  outline: none;
+  margin-top: 5px;
+  display: block;
+  box-sizing: border-box; /* 📌 padding 포함 */
+}
+
+/* ✅ 버튼 정렬 */
+.button-group {
+  display: flex;
+  justify-content: space-between; /* 📌 가로 정렬 */
+  margin-top: 15px;
+}
+
+/* ✅ 버튼 스타일 */
+.find-button {
+  width:100%;
+  flex: 1; /* 📌 버튼 크기 자동 조절 */
+  padding: 12px;
+  border-radius: 20px;
+  background: #FFA575;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  margin-right: 10px; /* 📌 버튼 사이 여백 */
+  text-align: center;
+}
+
+.find-button:hover {
+  background-color: #ff9d68;
+}
+
+/* ✅ 취소 버튼 */
+.cancel-button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 20px;
+  background: #EEEEEE;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  font-size: 16px;
+  text-align: center;
+}
+
+.cancel-button:hover {
+  background: #DDDDDD;
+}

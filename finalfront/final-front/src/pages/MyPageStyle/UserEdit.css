@@ -1,0 +1,74 @@
+/* 회원 정보 수정 폼 스타일 */
+.user-edit-container {
+    width: 100%;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 입력 필드와 레이블을 한 줄에 배치 */
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+/* 레이블 스타일 */
+.form-group label {
+    width: 120px; /* 🔹 동일한 크기 유지 */
+    font-weight: bold;
+    text-align: right;
+    margin-right: 10px;
+}
+
+/* 입력 필드 스타일 */
+.form-group input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* 🔹 이미지 업로드 섹션 */
+.image-upload-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* 🔹 미리보기 이미지 스타일 */
+.image-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;  /* 기존 120px → 80px로 축소 */
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-left: 15px; /* 🔹 이미지와 업로드 버튼 간격 조정 */
+}
+
+/* 🔹 파일 선택 버튼 스타일 */
+.file-input {
+    flex: 1;
+}
+
+/* 🔹 버튼 스타일 */
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.submit-btn:hover {
+    background-color: #4cae4c;
+}

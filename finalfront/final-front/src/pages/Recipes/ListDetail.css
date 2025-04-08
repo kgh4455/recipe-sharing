@@ -1,0 +1,343 @@
+/* 기본 스타일 */
+
+/* 최대 너비가 1400px인 영역에 중앙 정렬 및 제한 */
+.recipe-detail-main {
+    align-items: center;
+    max-width: 1400px;
+    width: 100%;
+    justify-self: center;
+    margin: 0 auto;
+}
+
+/* 기본 텍스트 크기 */
+.recipe-detail-main span {
+    font-size: 20px;
+}
+
+/* 레시피 이미지 */
+.recipe-view {
+    margin-top: 100px;
+    display: flex;
+    justify-content: flex-end;
+    text-align: right;
+    font-size: 20px;
+}
+
+.stepl-index {
+    background-color: #FFA575;
+    color: white; /* 숫자 가독성을 위해 흰색 */
+    width: 50px; /* 원 크기 조정 */
+    height: 50px; /* width와 동일하게 */
+    border-radius: 50%; /* 완전한 원형 */
+    display: inline-flex; /* 내용(숫자)을 중앙 정렬하기 위해 사용 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    font-weight: bold; /* 숫자 강조 */
+    margin-right: 20px;
+}
+
+.comments-back{
+    background-color: #eeeeee;
+    height: 90px;
+    cursor: pointer;
+    border-radius:20px;
+    transition: background-color 0.3s ease;
+    margin:0;
+}
+
+.comments-back:hover{
+    background-color: #d2d2d2;
+}
+/* 헤더 */
+.recipe-header {
+    text-align: center;
+}
+
+/* 상세 레시피 이름 */
+.recipe-detail-name {
+    color: #FFA575;
+}
+
+/* 이미지 크기 설정 */
+.recipe-header .list-img {
+    margin-top: 100px;
+    width: 100%;
+    height: 600px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+}
+
+/* 재료 표 */
+.ingredient-table h3 {
+    text-align: left;
+    font-size: 1.5rem;
+    margin-top: 40px;
+    color: #333;
+}
+
+/* 재료 링크 스타일 */
+.ingredient-table a {
+    cursor: pointer;
+    color: #FFA575;
+    border: 1px solid #FFA575;
+    padding: 10px 20px;
+    border-radius: 20px;
+}
+
+/* 리뷰 관련 스타일 */
+.review-container {
+    margin-top: 80px;
+}
+
+.reivewcomment-button {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.reviews p {
+    text-align: left;
+}
+
+.createdAt {
+    color: #5E5E5E;
+    font-size: 14px;
+}
+
+.review-head-h {
+    margin-top: 80px;
+    color: #FFA575;
+    margin-bottom: 80px;
+    font-size: 28px;
+}
+
+/* 추천 레시피 */
+.rd-reco {
+    margin: 0;
+    width: 100%;
+}
+
+.recipetime {
+    margin-right: 30px;
+}
+
+/* 레시피 이름 */
+.recipe-detail-in-name {
+    padding: 15px 0;
+    font-size: 20px;
+    margin-right: 40px;
+}
+
+/* 레시피 표 스타일 */
+.recipe-tables {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+/* 레시피 단계 */
+.recipe-step {
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rs-p {
+    margin: 0;
+    text-align: left;
+    font-size: 20px;
+}
+
+.recipe-step img {
+    width: 400px;
+    height: 300px;
+    border-radius: 10px;
+}
+
+/* 추천 레시피 카드 */
+.recommend-recipe {
+    display: flex;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 60px;
+}
+
+.recommend-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    align-items: center;
+    width: 300px;
+    height: 300px;
+    transition: transform 0.3s ease;
+}
+
+.recommend-card:hover {
+    transform: scale(1.05); /* Hover 시 크기 확대 */
+}
+
+.rc-img {
+    width: 250px;
+    height: 250px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.recommend-recipe-container {
+    overflow-x: auto; /* 가로 스크롤 */
+    white-space: nowrap;
+    padding: 10px 0;
+    margin-bottom: 100px;
+}
+
+.review-content{
+    margin-top: 80px;
+    margin-bottom:20px
+}
+
+.review-rating{
+    text-align: right;
+}
+/* 반응형 디자인 추가 */
+
+/* 작은 화면 (테블릿, 모바일)에서의 스타일 */
+@media (max-width: 1024px) {
+    .recipe-header .list-img {
+        width: 100%;
+        height: 300px;
+        margin-top: 30px;
+    }
+
+    .recipe-step {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .recipe-step img {
+        margin-top: 40px;
+        width: 60%;
+        height: auto;
+    }
+
+    .recipetime {
+        margin-right: 15px;
+    }
+    .recommend-recipe {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+
+    .recommend-card {
+        width: 250px;
+        height:250px;
+    }
+
+    .recipe-detail-name {
+        font-size: 25px;
+    }
+
+    .recipe-tables {
+        font-size: 16px;
+    }
+
+    .ingredient-table h3 {
+        font-size: 1.2rem;
+    }
+
+    .review-head-h {
+        font-size: 24px;
+    }
+
+    .rs-p {
+        font-size: 16px;
+        text-align: left;
+    }
+
+
+    .recipe-detail-main {
+        padding: 10px;
+    }
+
+    .rc-img{
+        width: 150px;
+        height: 150px;
+    }
+}
+
+/* 모바일 화면 (480px 이하)에서의 스타일 */
+@media (max-width: 480px) {
+    .recipe-detail-main {
+        padding: 10px;
+    }
+
+    .recipe-header .list-img {
+        width: 100%;
+        height: auto;
+        margin-top: 20px;
+    }
+
+    .recipe-view {
+        font-size: 16px;
+    }
+
+    .ingredient-table h3 {
+        font-size: 1rem;
+    }
+
+    .recipe-detail-name {
+        font-size: 16px;
+    }
+
+    .recipe-step {
+        flex-direction: column;
+        margin-top: 50px;
+    }
+
+    .recipe-step img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .recommend-recipe {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .recommend-card {
+            width: 200px;
+            height:200px;
+
+    }
+
+    .review-head-h {
+        font-size: 20px;
+    }
+
+    .rs-p {
+        font-size: 10px;
+    }
+
+    .recipe-tables {
+        font-size: 14px;
+    }
+
+    .reviews p {
+        font-size: 14px;
+    }
+
+    .review-content button {
+        font-size: 14px;
+    }
+
+    .recipe-step img {
+        width: 90%;
+    }
+
+    .rc-img{
+        width: 100px;
+        height: 100px;
+    }
+}

@@ -1,0 +1,54 @@
+body{
+  background-color: #fff8f4;
+  font-family: 'NEXON Lv1 Gothic OTF';
+}
+
+/* ✅ 푸터 스타일 */
+.footer {
+  background-color: #FFB58D;
+  color: #5E5E5E;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  border-radius: 20px 20px 0 0;
+}
+
+/* ✅ 간격 통일 */
+.header-title-gap {
+  margin-top: 100px;
+}
+.title-content-gap {
+  margin-top: 80px;
+}
+.content-button-gap {
+  margin-top: 80px;
+}
+.footer-gap {
+  margin-bottom: 100px;
+}
+
+/* ✅ 프로필 이미지 */
+.profile-image-large {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 5px solid #ffb700;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+}
+
+.profile-image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+}
+
+.mypage-container{
+  width: 100%;
+  max-width: 1400px;
+  text-align: center;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
